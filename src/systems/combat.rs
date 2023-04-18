@@ -2,7 +2,7 @@ use crate::prelude::*;
 
 #[system]
 #[read_component(WantsToAttack)]
-#[read_component(Health)]
+#[write_component(Health)]
 pub fn combat(ecs: &mut SubWorld, commands: &mut CommandBuffer) {
     let mut attckers = <(Entity, &WantsToAttack)>::query();
 
