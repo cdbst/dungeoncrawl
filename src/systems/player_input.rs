@@ -4,6 +4,7 @@ use crate::prelude::*;
 #[write_component(Point)]
 #[read_component(Player)]
 #[read_component(Enemy)]
+#[write_component(Health)]
 pub fn player_input(
     ecs: &mut SubWorld,
     commands: &mut CommandBuffer,
@@ -28,9 +29,13 @@ pub fn player_input(
             .find_map(|(entity, pos)| Some((*entity, *pos + delta)))
             .unwrap();
 
-
+        let mut did_something = false;
+        
         if delta.x != 0 || delta.y != 0 {
+
             let mut hit_something = false;
+            did_something = true;
+            
             enemies
                 .iter(ecs)
                 .filter(|(_, pos)| {
@@ -41,11 +46,22 @@ pub fn player_input(
                     commands.push(((), WantsToAttack{attcker: player_entity, victim: *entity}));
                 });
 
-            if !hit_something {
+            if ! hit_something {
                 commands.push(((), WantsToMove{entity: player_entity, destination: dest }));    
             }
 
-            *turn_state =TurnState::PlayerTurn;
         }
+
+        if !did_something {
+            if let Ok(mut health) = ecs
+                .entry_mut(player_entity)
+                .unwrap()
+                .get_component_mut::<Health>()
+            {
+                health.current = i32::min(health.max, health.current +1);
+            }
+        }
+
+        *turn_state =TurnState::PlayerTurn;
     }
 }
