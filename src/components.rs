@@ -23,11 +23,16 @@ pub struct WantsToMove {
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
+pub struct WantsToAttack {
+    pub attcker: Entity,
+    pub victim: Entity
+}
+
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Health {
     pub current: i32,
     pub max: i32
 }
-
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct Name(pub String);
