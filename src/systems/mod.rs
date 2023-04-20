@@ -8,6 +8,7 @@ mod movement;
 mod hud;
 mod tooltips;
 mod combat;
+mod chasing;
 
 // pub fn build_scheduler() -> Schedule {
 //     Schedule::builder()
