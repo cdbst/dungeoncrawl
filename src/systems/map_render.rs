@@ -45,17 +45,6 @@ pub fn map_render(ecs: &SubWorld, #[resource] map: &Map, #[resource] camera: &Ca
                         );
                     }
                 }
-
-                // let idx = Map::map_idx(x, y);
-                // let glyph = match map.tiles[idx] {
-                //     TileType::Floor => to_cp437('.'),
-                //     TileType::Wall => to_cp437('#'),
-                // };
-                // draw_batch.set(
-                //     pt - offset,
-                //     ColorPair::new(WHITE, BLACK),
-                //     glyph
-                // );
             }
         }
     }
